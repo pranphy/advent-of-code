@@ -11,10 +11,12 @@ function get_paths_from_file(filepath)
 end
 
 
-function insert_pints_touched(holder,start,segment)
+function insert_pints_touched(holder,start,segment,dist_so_far=0)
     direction   = segment[1]
     seg_len_str = segment[2:length(segment)]
     seg_length = tryparse(Int64,seg_len_str)
+
+    dist_so_far += seg_length
 
     xi,yi = start
 
@@ -39,7 +41,7 @@ function insert_pints_touched(holder,start,segment)
         point = [xi,yi]
         push!(holder,point)
     end
-    return xi,yi
+    return [xi,yi],dist_so_far
 end
 
 
@@ -51,12 +53,14 @@ function get_point_sets()
     holder2 = Set{Vector}()
 
     last_point = [0,0]
+    dist_so_far = 0
     for segment in l1
-        last_point = insert_pints_touched(holder1,last_point,segment)
+        last_point,dist_so_far = insert_pints_touched(holder1,last_point,segment,dist_so_far)
     end
     last_point = [0,0]
+    dist_so_far = 0
     for segment in l2
-        last_point = insert_pints_touched(holder2,last_point,segment)
+        last_point,dist_so_far = insert_pints_touched(holder2,last_point,segment,dist_so_far)
     end
     return holder1,holder2
 end
@@ -75,7 +79,7 @@ function find_common()
 end
 
 
-function find_distance()
+function find_min_distance()
     commons = find_common()
     dists = Set{Int64}()
     for points in commons
@@ -92,8 +96,7 @@ function find_distance()
     return min
 end
 
-
-
-min = find_distance()
+min = find_min_distance()
 print("The minimum distance is ",min)
+
 
