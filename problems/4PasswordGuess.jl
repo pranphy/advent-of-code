@@ -18,17 +18,6 @@ function is_monotonic(number)
     return true
 end
     
-
-function has_double(number)
-    numstr = string(number)
-    for (i,c)  in enumerate(numstr)
-        if c in numstr[i+1:length(numstr)]
-            return true
-        end
-    end
-    return false
-end
-
 function count_digits(number)
     numstr = string(number)
     counts = Vector{Int64}()
@@ -39,8 +28,6 @@ function count_digits(number)
     return counts
 end
 
-criteria1(list) = maximum(list) >= 2
-criteria2(list)  =  2 in list
 
 function get_count(criteria)
     first = 156666
@@ -55,6 +42,9 @@ function get_count(criteria)
     end
     return count
 end
+
+criteria1(list) = maximum(list) >= 2
+criteria2(list)  =  2 in list
 
 count1 = get_count(criteria1)
 count2 = get_count(criteria2)
