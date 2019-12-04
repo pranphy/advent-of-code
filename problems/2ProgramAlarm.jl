@@ -13,34 +13,50 @@ function read_program_array()
     return code_vec
 end
 
-pos = 1
+function get_output(noun,verb)
+    pos = 1
 
-code_vec = read_program_array()
+    code_vec = read_program_array()
 
-code_vec[1+1] = 12
-code_vec[2+1] = 2
+    code_vec[1+1] = noun
+    code_vec[2+1] = verb 
 
-while code_vec[pos] != 99
+    while code_vec[pos] != 99
 
-    command,pos1,pos2,pos3 = code_vec[pos:pos+3]
-    global pos += 4
+        command,pos1,pos2,pos3 = code_vec[pos:pos+3]
+        pos += 4
 
-    val1 = code_vec[pos1 + 1]
-    val2 = code_vec[pos2 + 1]
-    val = 0
+        val1 = code_vec[pos1 + 1]
+        val2 = code_vec[pos2 + 1]
+        val = 0
 
-    if command == 1
-        val = val1 + val2
-    elseif command == 2
-        val = val1 * val2
-    else
-        warn("Something wrong ")
+        if command == 1
+            val = val1 + val2
+        elseif command == 2
+            val = val1 * val2
+        else
+            warn("Something wrong ")
+        end
+
+        code_vec[pos3 + 1] = val
     end
-
-    code_vec[pos3 + 1] = val
+    return code_vec[1]
 end
 
-println("The first value is ",code_vec[1])
 
-    
+function get_nounsum()
+    Val = 19690720
+    for noun = 0:99
+        for verb = 0:99
+            op = get_output(noun,verb)
+            if op == Val
+                println("Noun : ",noun," Verb : ",verb, " Result : ",100*noun+verb)
+            end
+        end
+    end
+end
+
+println("The first value is ",get_output(12,2))
+
+get_nounsum()
 
