@@ -1,7 +1,7 @@
 # author : Prakash
 # date   : Tue Dec  3 12:27:05 EST 2019
 
-masses = readlines("1module_masses.txt")
+masses = readlines("./files/1module_masses.txt")
 
 function fuel_for_mass(mass)
     floor(mass/3)-2

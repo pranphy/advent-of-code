@@ -3,7 +3,7 @@
 
 function read_program_array()
     code_vec = Vector{Int64}(undef,0)
-    opcodes = readlines("2alarm_code.txt")[1]
+    opcodes = readlines("./files/2alarm_code.txt")[1]
     code_list = split(opcodes,",")
     for cnt = 1:length(code_list)
         cur_code = code_list[cnt]
