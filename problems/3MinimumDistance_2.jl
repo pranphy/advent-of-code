@@ -16,29 +16,15 @@ function insert_points_touched(holder,start,segment,dist_so_far=0)
     seg_len_str = segment[2:length(segment)]
     seg_length = tryparse(Int64,seg_len_str)
 
-    #print("Distance so far is : ",dist_so_far)
-
-
     xi,yi = start
-
     dir = [0,0]
+    dir_factor = Dict('R' => [1,0], 'L' => [-1,0], 'U' => [0,1], 'D' => [0,-1])
 
-    if direction == 'R'
-        dir = [1,0]
-    elseif direction == 'L'
-        dir = [-1,0]
-    elseif direction == 'U'
-        dir = [0,1]
-    elseif direction == 'D'
-        dir = [0,-1]
-    else
-        warn("Something wrong")
-    end
 
     for i in 1:seg_length
         dist_so_far += 1
-        xi += dir[1]*1
-        yi += dir[2]*1
+        xi += dir_factor[direction][1]*1
+        yi += dir_factor[direction][2]*1
 
         point = [xi,yi]
         key = [xi,yi]
@@ -112,12 +98,7 @@ function find_min_distance(metric)
         dist = distance(metric,points)
         push!(dists,dist)
     end
-    min = dists[1]
-    for i in dists
-        if i  < min
-            min = i
-        end
-    end
+    min = minimum(dists)
     return min
 end
 
