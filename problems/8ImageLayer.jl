@@ -32,6 +32,36 @@ function fewest_layer_n(layers::Vector{Array{Int64,2}},n::Int=0)
     min_idx = findall(x -> x == min_count,n_counts)[1]
     return layers[min_idx]
 end
+
+function get_pixel_val(i,j,layers::Vector{Array{Int64,2}})
+    layers[1][i,j] == 2 ? get_pixel_val(i,j,layers[2:end]) : layers[1][i,j]
+end
+
+
+function stack_layers(layers::Vector{Array{Int64,2}})
+    row,col = size(layers[1]) # All the layers have the same size; so first
+    final = zeros(size(layers[1]))
+    for i in 1:row
+        for j in 1:col
+            pixel = get_pixel_val(i,j,layers)
+            final[i,j] = pixel
+        end
+    end
+    return final
+end
+
+function imshow(image)
+    r,c = size(image)
+    for i in 1:r
+        for j in 1:c
+            vl = image[i,j]
+            vl = vl != 0 ? '#' : ' '
+            print(vl)
+        end
+        println("")
+    end
+end
+
         
 imagedata = read_imgdata("./files/8image_data.txt")
 
@@ -44,4 +74,10 @@ one_count = count_digit(min_layer,1)
 two_count = count_digit(min_layer,2)
 
 println("The product required is $one_count x $two_count =  $(one_count * two_count) ")
+
+println("The message is ::")
+final = stack_layers(layers)
+imshow(final)
+
+
 
