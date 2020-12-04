@@ -31,7 +31,7 @@ function check_valid_policy2(info)
         max = tryparse(Int64,policy[2])
         char = policy[3]
         password = policy[4]
-        cond1 = string(password[min])==string(Char) ? 1 : 0
+        cond1 = string(password[min])==string(char) ? 1 : 0
         cond2 = string(password[max])==string(char) ? 1 : 0
         if cond1 + cond2 == 1
             valid +=1
