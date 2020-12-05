@@ -31,12 +31,10 @@ end
 all_ids  = [seat_id(boardid) for boardid in readlines("./files/5_binary-boarding.txt") ]
 
 highestid = maximum(all_ids)
-print("The highest id is $(highestid)")
+println("The highest id is $(highestid)")
 
 sort!(all_ids)
-difference = all_ids[2:end] .- all_ids[1:end-1]
-maxdiff,id = findmax(difference)
+_,id = findmax(all_ids[2:end] .- all_ids[1:end-1])
 my_seat = all_ids[id] + 1
-
 
 println("My set id is $(my_seat)")
