@@ -2,9 +2,6 @@
 # author : Prakash
 # date   : Thu 10 Dec 2020 07:16:13 PM EST
 
-read_code(filename) = map(x->(x[1],tryparse(Int64,x[2])),map(x->split(x," "),readlines(filename)))
-
-
 
 function execute(code)
     acc = 0
@@ -41,13 +38,15 @@ function fix_code(code)
     print("failed to fix")
 end
 
-code =  read_code("./files/8_handheld-halting.txt")
-println(length(code))
+filename = "./files/8_handheld-halting.txt"
 
+code = readlines(filename) .|> x -> split(x," ") |> a ->(a[1],tryparse(Int64,a[2]))
+
+# Part one
 completion, acc = execute(code)
-println("The accumulator value at fault is $(acc) completion=$(completion)")
+println("The accumulator value at fault is $(acc)")
 
-
+# Part two
 acc = fix_code(code)
 println("The fixed code has accumulator $(acc)")
 
