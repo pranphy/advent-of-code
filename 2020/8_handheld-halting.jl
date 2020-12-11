@@ -23,15 +23,10 @@ end
 
 function fix_code(code)
     for (i,(ins,param)) ∈ enumerate(code)
-        if ins == "jmp"
+        if ins == "jmp" || ins == "nop"
             cp_code = copy(code)
-            cp_code[i] = ("nop",param)
+            cp_code[i] = (ins == "jmp" ? "nop" : "jmp",param)
             completion, acc = execute(cp_code)
-            completion && return acc
-        elseif ins == "nop"
-            cp_code = copy(code)
-            cp_code[i] = ("jmp",param)
-            completion,acc = execute(cp_code)
             completion && return acc
         end
     end
@@ -39,7 +34,6 @@ function fix_code(code)
 end
 
 filename = "./files/8_handheld-halting.txt"
-
 code = readlines(filename) .|> x -> split(x," ") |> a ->(a[1],tryparse(Int64,a[2]))
 
 # Part one
