@@ -4,7 +4,6 @@
 
 using Combinatorics
 
-
 function find_error_loc(nums,N=25)
     for x ∈ N+2:length(nums)
         prev = nums[x-1-N:x-1]
@@ -27,19 +26,14 @@ function find_cont_list(nums,err_loc)
     []
 end
 
-
 nums = readlines("./files/9_encoding-error.txt") .|> x-> tryparse(Int64,x)
 
 # Part one
 err_loc = find_error_loc(nums)
 println("The error num is $(nums[err_loc])")
 
-
 # Part two
 cont_list = find_cont_list(nums,err_loc)
 maxminsum = maximum(cont_list) + minimum(cont_list)
 println("The encryption weakness is $(maxminsum)")
-
-
-
 

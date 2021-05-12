@@ -13,8 +13,9 @@ function philosophy1(min,max,char,password)
     total >= min && total <= max
 end
 
-function philosophy2(min,max,char,password)
-    (string(password[min]) == string(char)) ⊻ (string(char) == string(password[max]))
+function philosophy2(min,max,letter,password)
+    (password[min] == letter) ⊻ (letter == password[max])
+
 end
 
 function check_valid(info,philosophy)
@@ -22,9 +23,9 @@ function check_valid(info,philosophy)
     for policy in info
         min = tryparse(Int64,policy[1]) 
         max = tryparse(Int64,policy[2])
-        char = policy[3]
+        character = policy[3][1]
         password = policy[4]
-        valid += philosophy(min,max,char,password) ? 1 : 0
+        valid += philosophy(min,max,character,password) ? 1 : 0
     end
     valid
 end

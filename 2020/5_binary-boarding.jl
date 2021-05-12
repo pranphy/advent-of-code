@@ -36,5 +36,4 @@ println("The highest id is $(highestid)")
 sort!(all_ids)
 _,id = findmax(all_ids[2:end] .- all_ids[1:end-1])
 my_seat = all_ids[id] + 1
-
 println("My set id is $(my_seat)")
